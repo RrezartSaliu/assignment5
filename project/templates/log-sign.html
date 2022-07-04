@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>GuiTune</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+     <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700">
+    <script>
+
+        function changetosign(){
+            loginform = document.getElementById('form-login')
+            signupform = document.getElementById('form-signup')
+            loginbutton = document.getElementById('login-button')
+            signupbutton = document.getElementById('signup-button')
+
+            signupbutton.className="visually-hidden"
+            loginbutton.className=""
+            loginform.className="visually-hidden"
+            signupform.className=""
+        }
+        function changetolog(){
+            loginbutton.className="visually-hidden"
+            signupbutton.className=""
+            signupform.className="visually-hidden"
+            loginform.className=""
+        }
+    </script>
+</head>
+<body>
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+
+        <h1 class="logo me-auto me-lg-0"><a href="/">GuiTune</a></h1>
+
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a href="/index">Home</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a class="active" href="/login_sign">Login</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+        <div class="header-social-links">
+            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        </div>
+
+    </div>
+    {% if user.is_authenticated %}
+    <form action="/logoutuser" style="position: absolute; top:100px; right: 50px">
+        <input id="logout" type="submit" value="Logout" style="font-family: Raleway, sans-serif;">
+    </form>
+    {% endif %}
+</header><!-- End Header -->
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
+    <div class="container d-flex flex-column align-items-center" data-aos="zoom-in" data-aos-delay="100">
+        <h1>GuiTune</h1>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning d-flex align-items-center mt-3" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:">
+                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
+                        <use xlink:href="#exclamation-triangle-fill"></use>
+                    </svg>
+                    <div>
+                        {{ message }}
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div id="login">
+            <form id="form-login" name='form-login' method="post" action="/loginuser/">
+                {% csrf_token %}
+                <span class="fontawesome-user"></span>
+                <input type="text" id="user-log" name="user-log" placeholder="Username">
+
+                <span class="fontawesome-lock"></span>
+                <input type="password" id="pass-log" name="pass-log" placeholder="Password">
+
+                <input type="submit" value="Login">
+            </form>
+            <form method="post" id="form-signup" name='form-signup' class="visually-hidden" action="/register/">
+                {% csrf_token %}
+                <span class="fontawesome-user"></span>
+                <input type="text" id="user-sign" name="user-sign" placeholder="Username">
+
+                <span class="fontawesome-envelope"></span>
+                <input type="text" id="email-sign" name="email-sign" placeholder="Email">
+
+                <span class="fontawesome-lock"></span>
+                <input type="password" id="pass-sign" name="pass-sign" placeholder="Password">
+
+                <input type="submit" value="Signup">
+
+            </form>
+
+            <button onclick="changetosign()" id="signup-button"> Sign up </button>
+            <button onclick="changetolog()" id="login-button" class="visually-hidden"> Login </button>
+        </div>
+    </div>
+</section><!-- End Hero -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+    <div class="container">
+        <div class="copyright">
+            &copy; Copyright <strong><span>GuiTune</span></strong>. All Rights Reserved
+        </div>
+    </div>
+</footer><!-- End  Footer -->
+
+<div id="preloader"></div>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+  <script src="{% static 'vendor/purecounter/purecounter.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{%  static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/waypoints/noframework.waypoints.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
