@@ -77,23 +77,27 @@ WSGI_APPLICATION = 'assignment5.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': 'ec2-3-248-121-12.eu-west-1.compute.amazonaws.com',
-        'NAME': 'dc51eva0v49e25',
-        'USER': 'ihvhocnbeldqey',
-        'PASSWORD': '02c98aa2f7fde6a20fd606daddc539fae3b2f2ce7fe711d6a14ab5c7cd518868',
-        'PORT': '5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'HOST': 'ec2-3-248-121-12.eu-west-1.compute.amazonaws.com',
+#         'NAME': 'dc51eva0v49e25',
+#         'USER': 'ihvhocnbeldqey',
+#         'PASSWORD': '02c98aa2f7fde6a20fd606daddc539fae3b2f2ce7fe711d6a14ab5c7cd518868',
+#         'PORT': '5432'
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
