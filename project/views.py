@@ -29,6 +29,7 @@ def register(request):
         user = User.objects.create_user(username, email, password)
         account = Account(user=user, taken_test=0)
         account.save()
+        messages.error(request, "You signed up successfully")
         return redirect("/login_sign")
 
 

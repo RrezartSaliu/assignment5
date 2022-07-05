@@ -16,3 +16,9 @@ class Question(models.Model):
     option3 = models.CharField(max_length=100)
     option4 = models.CharField(max_length=100)
     correct = models.CharField(max_length=1)
+
+
+class Song(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+
